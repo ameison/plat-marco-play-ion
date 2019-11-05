@@ -1,0 +1,21 @@
+<ion-modal-view class="mymodal">
+  <ion-header-bar class="bar bar-header bar-light">
+    <button ng-click="limpiar()" class="button button-outline button-calm" style="font-size: 1.5em; margin-right: 10px;">
+      Limpiar
+    </button>
+    <button ng-click="guardar(prt, idx, img)" class="button button-outline button-balanced" style="font-size: 1.5em;">
+      Guardar
+    </button>
+    <button ng-click="closeModal()" class="button button-outline button-assertive" style="font-size: 1.5em;">
+      Cerrar
+    </button>
+    <!-- <input type="text" ng-model="img.sub"/> -->
+  </ion-header-bar>
+  <ion-content scroll="false">
+    <label class="item item-input">
+      <ion-label>Descripci&oacute;n</ion-label>
+      <input type="text" ng-model="img.sub" placeholder="Ingrese la descripción de la imagen"/>
+    </label>
+    <canvas id="index{{idx}}" drawing></canvas>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,52 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-pdialog": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.abcdroid.sigeslub"
+        }
+    }
+}

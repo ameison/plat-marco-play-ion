@@ -1,0 +1,87 @@
+<ion-view view-title="Inspecci&oacute;n Engranaje">
+
+  <ion-nav-buttons side="right">
+
+    <button class="button button-outline button-light" ng-click="irCorrectivo()" style="margin-right: 10px">
+        <!-- <i class="icon ion-wrench"></i> -->
+        Correctivo
+    </button>
+
+    <button class="button button-outline button-light" ng-click="descargarInspeccionesEN()" style="margin-right: 10px">
+        <!-- <i class="icon ion-archive"></i> -->
+        Descargar Inspecciones
+    </button>
+
+    <button class="button button-outline button-light" ng-click="listarInspeccionesEN(); listarInspeccionesENHistorico();">
+        <!-- <i class="icon ion-refresh"></i> -->
+        Actualizar
+    </button>
+
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <ion-tabs class="tabs-positive tabs-icon-top tabs-background-positive tabs-color-light">
+
+      <ion-tab title="Proceso" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
+
+        <ion-scroll direction="y">
+
+          <div style="padding-top: 49px; width: 100%; display: block"></div>
+
+          <div class="row" ng-if="inspecciones.length <= 0">
+            <div class="col">
+              No hay inspecciones pendientes u observadas.
+            </div>
+          </div>
+
+          <div class="list">
+            <div class="item item-button-left" ng-repeat="inspeccion in inspecciones" ng-class="inspeccion.estado == 'O' ? 'back_observado' : 'back_progreso'">
+              <p ng-click="abrirInspeccion(inspeccion.id)">
+                {{ (inspeccion.servidor_id != 0 ? 'SIG' + inspeccion.servidor_id : 'SIG??' ) + ' - ' + inspeccion.min_nombre + '/' + inspeccion.sup_nombre +
+                ' - ' + (inspeccion.equipo_id != null ? inspeccion.eq_nombre : 'No seleccionado') + (inspectorId == inspeccion.responsable_id ? ' - ' + inspeccion.responsable_nombres : ' - Compartida por : '
+                + inspeccion.responsable_nombres) + ' - ' + (inspeccion.fecha_creacion != null ? inspeccion.fecha_creacion : 'No sincronizado') }}<br/>
+                {{inspeccion.resumen_actividad}}
+              </p>
+              <button class="button button-assertive" ng-if="!inspeccion.sincronizado" ng-click="sincronizarInspeccion(inspeccion.id)">
+                <i class="ion-upload"></i>
+              </button>
+              <button class="button button-positive" ng-if="inspeccion.sincronizado" ng-click="showToast('Esta inspección ya esta sincronizada')">
+                <i class="ion-cloud"></i>
+              </button>
+            </div>
+          </div>
+
+        </ion-scroll>
+
+      </ion-tab>
+
+      <ion-tab title="Historial" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+
+        <ion-scroll direction="y">
+
+          <div style="padding-top: 49px; width: 100%; display: block"></div>
+
+          <div class="row" ng-if="inspeccionesHistorico.length <= 0">
+            <div class="col">
+              No hay inspecciones finalizadas
+            </div>
+          </div>
+
+          <div class="list">
+            <div class="item" ng-repeat="inspeccion in inspeccionesHistorico">
+              {{ 'SIG' + inspeccion.id + ' - ' + inspeccion.min_nombre + '/' + inspeccion.sup_nombre + ' - Responsable : ' + inspeccion.responsable_nombres}}
+            </div>
+          </div>
+        </ion-scroll>
+
+      </ion-tab>
+
+    </ion-tabs>
+
+    <button class="button button-float" ng-click="openNew();">
+      <i class="icon ion-plus"></i>
+    </button>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,67 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Nueva inspecci&oacute;n</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class = "list">
+      <label class = "item item-input item-select">
+        <div class = "input-label">
+           Mina
+        </div>
+        <select
+          ng-model="data.mina"
+          ng-options="mina.id as mina.nombre for mina in minas"
+          ng-change="obtenerSuperintendenciasXMina(data.mina);obtenerFormatosXModeloYMina();">
+        </select>
+     </label>
+      <label class = "item item-input item-select">
+        <div class = "input-label">
+           Superintendencia
+        </div>
+        <select
+          ng-model="data.superintendencia"
+          ng-options="superintendencia.id as superintendencia.nombre for superintendencia in superintendencias">
+        </select>
+     </label>
+     <label class = "item item-input item-select">
+        <div class = "input-label">
+           Categor&iacute;a
+        </div>
+        <select
+          ng-model="data.categoria"
+          ng-options="categoria.id as categoria.nombre for categoria in categorias"
+          ng-change="obtenerModelosXCategoria(data.categoria, data.superintendencia)">
+        </select>
+
+     </label>
+     <label class = "item item-input item-select">
+       <div class = "input-label">
+          Modelo de Equipo
+       </div>
+       <select
+         ng-model="data.modelo"
+         ng-options="modelo.id as modelo.nombre for modelo in modelos"
+         ng-change="obtenerFormatosXModeloYMina()">
+       </select>
+    </label>
+    <label class = "item item-input item-select">
+      <div class = "input-label">
+         Formato unico de reporte
+      </div>
+      <select
+        ng-model="data.fur"
+        ng-options="fur as fur.nombre for fur in furs">
+      </select>
+   </label>
+    <div class="button-bar">
+      <button class="button button-clear button-positive" ng-click="nuevaInspeccion()">
+        Aceptar
+      </button>
+      <button class="button button-clear button-positive" ng-click="closeNew()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  </ion-content>
+</ion-modal-view>

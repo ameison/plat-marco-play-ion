@@ -1,0 +1,51 @@
+<ion-view view-title="Seguimiento">
+  <ion-content>
+    <div class="card">
+      <div class="row">
+        <div class="col">
+          <div class="list">
+
+            <label class="item item-input item-select">
+              <div class="input-label">
+                Mina
+              </div>
+
+              <select
+                ng-model="data.mina"
+                ng-options="mina.id as mina.nombre for mina in minas">
+              </select>
+
+            </label>
+            <label class="item item-input item-select">
+              <div class="input-label">
+                Tipo de inspecci&oacute;n
+              </div>
+              <select
+                ng-model="data.tipo"
+                ng-options="tipo.id as tipo.nombre for tipo in tiposSeguimientos">
+              </select>
+            </label>
+
+            <button class="button button-block button-positive" ng-click="descargarSeguimiento()">
+              Listar y guardar
+            </button>
+
+          </div>
+        </div>
+        <div class="col">
+          <ion-checkbox style='border: none; margin: 0px' ng-model="categoria.checked" ng-repeat="categoria in categorias">
+            {{categoria.nombre}}
+          </ion-checkbox>
+        </div>
+      </div>
+      <div class="item item-text-wrap">
+        <div class="list">
+          <div class="item" ng-repeat="seguimiento in seguimientos">
+            {{ 'Equipo : ' + seguimiento.equipo + ' - ' + seguimiento.ultima_intervencion + ' - Dias : ' + seguimiento.dias + ' - ' + seguimiento.tipo_inspeccion + ' - Estado : ' + seguimiento.estado}}<br/>
+            {{ 'Resumen actividad : ' + seguimiento.resumen }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

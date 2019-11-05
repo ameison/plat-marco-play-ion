@@ -1,0 +1,22 @@
+<ion-modal-view class="mymodal">
+  <ion-header-bar class="bar bar-header bar-light">
+    <h1 class="title">Imagen de ayuda</h1>
+    <button style="float: right;" ng-click="closeModal()" class="button button-assertive">
+      <i class="ion-close" style="font-size: 1.5em;"></i>
+    </button>
+  </ion-header-bar>
+  <ion-content>
+    <ion-scroll zooming="true"
+		    direction="xy"
+		    delegate-handle="zoom-pane"
+		    min-zoom="1"
+		    max-zoom="15"
+        scrollbar-x="false"
+	      scrollbar-y="false"
+		    overflow-scroll="false">
+
+      <center><img data-ng-src="data:image/png;base64,{{imagenAyuda}}" style="width:auto; height:100%"/></center>
+   </ion-scroll>
+
+  </ion-content>
+</ion-modal-view>

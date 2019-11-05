@@ -1,0 +1,207 @@
+<ion-view view-title="Inspección">
+  <ion-nav-buttons side="right">
+
+      <button class="button button-outline button-light"
+            style="color: white; border: 2px solid #ffffff; border-radius: 100%; font-weight: bold; margin-right: 10px">
+            {{numPagina}}/{{formato.contenido.length}}
+      </button>
+      <!-- ng-if="numPagina != 0" -->
+
+      <button ng-if="numPagina > 0" class="button button-outline button-light"
+            ng-click="verImagenAyuda(numPagina)"
+            style="color: white; border-color: #ffffff; font-weight: bold; margin-right: 10px">
+            VER IMAGEN DE AYUDA
+      </button>
+      <!-- ng-if="numPagina != 0" -->
+
+      <button class="button button-outline button-light" ng-click="previous()"
+      style="color: white; border-color: #ffffff; font-weight: bold; margin-right: 10px">
+        <!-- <i class="icon ion-reply"></i> -->
+        ANTERIOR
+      </button>
+      <!-- ng-if="numPagina != 0" -->
+
+      <button class="button button-outline button-light" ng-click="next()"
+      style="color: white; border-color: #ffffff; font-weight: bold; margin-right: 10px">
+        <!-- <i class="icon ion-forward"></i> -->
+        AVANZAR
+      </button>
+      <!-- ng-if="formato.equipo != undefined && formato.prioridad != undefined
+      && numPagina < formato.contenido.length && formato.orden_trabajo != undefined
+      && formato.orden_trabajo != '' && formato.resumen_actividad != undefined
+      && formato.resumen_actividad != ''" -->
+
+      <button class="button button-outline button-light"
+      ng-click="finalizar()" style="color: white; border-color: #ffffff; font-weight: bold;">
+        <!-- <i class="icon ion-share"></i> -->
+        GUARDAR Y SALIR
+      </button>
+      <!-- ng-if="numPagina == formato.contenido.length" -->
+
+  </ion-nav-buttons>
+  <ion-content>
+
+    <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)" >
+
+      <ion-slide>
+        <div class="card">
+          <div class="item item-divider">
+            Secci&oacute;n de identificaci&oacute;n
+          </div>
+          <div class="item item-text-wrap">
+            <div class="list">
+
+              <label class="item item-input">
+                <span class="input-label">Orden de trabajo</span>
+                <input type="text" ng-model="formato.orden_trabajo"/>
+              </label>
+
+              <label class="item item-input">
+                <span class="input-label">Resumen actividad</span>
+                <input type="text" ng-model="formato.resumen_actividad"/>
+              </label>
+
+              <label class="item item-input">
+                <span class="input-label">Horometro</span>
+                <input type="number" ng-model="formato.horometro" min="0" />
+              </label>
+
+              <label class="item item-input">
+                <span class="input-label">Compartir esta inspección?</span>
+                <ion-checkbox style="border: none" ng-model="formato.compartido"></ion-checkbox>
+              </label>
+
+              <label class="item item-input item-select">
+                <div class="input-label">
+                  Prioridad
+                </div>
+                <select ng-model="formato.prioridad"
+                        ng-options='prioridad.id as prioridad.nombre for prioridad in prioridades'>
+                </select>
+              </label>
+
+              <label class="item item-input item-select">
+                <div class="input-label">
+                  Equipo
+                </div>
+                <select ng-model="formato.equipo"
+                        ng-options='equipo.id as equipo.nombre for equipo in equipos'>
+                </select>
+              </label>
+
+              <label class="item item-input" ng-show="formato.estado == 'O'">
+                <div class="input-label">
+                  Observaciones
+                </div>
+
+                <textarea ng-model="formato.observaciones" rows="5" cols="10"></textarea>
+              </label>
+
+              <label class="item item-input" ng-show="formato.servidor_id <= 0">
+                <span class="input-label">Eliminar inspeccion</span>
+                <button class="button button-assertive" style="float: right; top: 2px;" ng-click="eliminarInspeccion(formato)">
+                   <i class="ion-ios-trash"></i>
+                </button>
+              </label>
+
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+
+      <ion-slide ng-repeat="seccion in formato.contenido track by $index">
+        <ion-scroll direction="y">
+        <div class="card">
+          <div class="item item-divider">
+            <label>{{numPagina}}. {{seccion.nombre}}</label>
+          </div>
+          <div class="item item-text-wrap">
+            <div class="row responsive-sm" ng-repeat="row in seccion.contenido.data.content track by $index" ng-init="rowIndex = $index">
+
+              <div ng-repeat='column in row.content track by $index'
+                  ng-class="$index == 0 && seccion.contenido.data.content.length > 2 ? 'col col-10 text-center' : 'col'"
+                  ng-style="rowIndex == 0 && {'background-color':'#397EF5', 'padding': '15px 0px', 'text-align': 'center', 'text-transform': 'uppercase', 'color': 'white'}"
+                  style="border: 1px #eaeaea; border-style: solid">
+
+                <label ng-model="column.content.value"
+                      ng-if="column.content.obj == 'label'"
+                      ng-style="rowIndex == 0 && {'font-weight':'bold'}">
+                      {{column.content.value}}
+                </label>
+
+                <label class="item item-input" ng-if="column.content.obj == 'input-text'" ng-pattern="/^[a-zA-Z\s]*$/">
+                  <input ng-model="column.content.value" type="text"/>
+                </label>
+
+                <label class="item item-input" ng-if="column.content.obj == 'input-num'">
+                  <input ng-model="column.content.value" type="number"/>
+                </label>
+
+                <label class="item item-input" ng-if="column.content.obj == 'input-textnum'">
+                  <input ng-model="column.content.value" type="text" />
+                </label>
+
+                <label class="item item-input item-select-p" style="border: none" ng-if="column.content.obj == 'input-option'">
+                  <div class="input-label">
+                    &nbsp;
+                  </div>
+                  <select style="min-height: 24px" ng-model="column.content.value">
+                    <option ng-repeat="item in column.content.options">{{item.value}}</option>
+                  </select>
+                </label>
+
+                <ion-checkbox style='border: none' ng-if="column.content.obj == 'input-check'" ng-model="column.content.checked"></ion-checkbox>
+
+                <label class="item item-input item-select-p" style="border: none" ng-if="column.content.obj == 'input-option-ico'">
+                  <div class="input-label">
+                    &nbsp;
+                  </div>
+                  <select style="min-height: 24px" ng-model="column.content.value">
+                    <option ng-repeat="item in column.content.options">{{item.value}}</option>
+                  </select>
+                </label>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="item item-divider">
+            MIS CAPTURAS
+          </div>
+          <div class="item item-text-wrap">
+            <ion-scroll direction="x" overflow-scroll="false" style="white-space: nowrap;">
+
+              <div style="display: inline-block; width: 109px; height: 99px; margin: 18px; border: 1px solid black;"
+                   ng-click="mostrarAcciones($index)">
+                   <img src="img/add.png" style="position: absolute; width: 93px; height: 90px; padding-left: 1.5%; padding-top: 1%;">
+              </div>
+
+              <div style="display: inline-block; margin: 18px; position: relative; width: 109px; height: 99px;"
+                   ng-show="seccion.contenido.data.pictures.length > 0"
+                   ng-repeat="imagen in seccion.contenido.data.pictures track by $index"
+                   on-swipe-down="scrollTop()"
+                   >
+
+                <img ng-src="{{imagen.src}}"
+                    ng-click="showImages(imagen, $parent.$index, $index)"
+                    id="image-list-thumb"
+                    style="position: absolute; width: 110px; height: 100px">
+                <button class="button button-assertive" style="float: right; top: 2px;"
+                        ng-click="eliminarFoto($parent.$index, $index)">
+                   <i class="ion-ios-trash"></i>
+                </button>
+
+              </div>
+
+            </ion-scroll>
+          </div>
+        </div>
+
+      </ion-slide>
+
+    </ion-slide-box>
+
+  </ion-content>
+</ion-view>

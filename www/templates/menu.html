@@ -1,0 +1,49 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+
+    <ion-header-bar class="bar-positive header_menu">
+      <h2 style="color: #fff; font-weight: bold">SIGESLUB</h2>
+      <strong style="font-size: 1.3em">{{ usuario.nombres }}</strong><br/>
+      {{ usuario.correo }}
+    </ion-header-bar>
+
+    <ion-content style="margin-top: 115px">
+      <ion-list>
+        <ion-item menu-close href="#/app/inspeccion-ssl">
+          Inspeccion SCL
+        </ion-item>
+        <ion-item menu-close href="#/app/monitoreo-temperatura">
+          Monitoreo de la Temperatura
+        </ion-item>
+        <ion-item menu-close href="#/app/mantenimiento-correctivo">
+          Eventos
+        </ion-item>
+        <ion-item menu-close href="#/app/inspeccion-engranaje">
+          Inspeccion de engranaje
+        </ion-item>
+        <ion-item menu-close href="#/app/seguimiento">
+          Seguimiento
+        </ion-item>
+        <ion-item menu-close href="#/app/configuracion">
+          Configuraci&oacute;n
+        </ion-item>
+        <ion-item menu-close ng-click="cerrarSesion()">
+          Cerrar Sesi&oacute;n
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
